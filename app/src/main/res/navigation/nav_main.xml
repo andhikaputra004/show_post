@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.kumparan.ui.main.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/list_post_to_detail"
+            app:destination="@id/detailPostFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <argument
+            android:name="selectedPost"
+            app:argType="com.example.kumparan.data.remote.model.PostDTO" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailPostFragment"
+        android:name="com.example.kumparan.ui.detailpost.DetailPostFragment"
+        android:label="DetailPostFragment" >
+        <argument
+            android:name="selectedPost"
+            app:argType="com.example.kumparan.data.remote.model.PostDTO" />
+        <action
+            android:id="@+id/detail_post_to_detail_user"
+            app:destination="@id/detailUserFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailUserFragment"
+        android:name="com.example.kumparan.ui.detailuser.DetailUserFragment"
+        android:label="DetailUserFragment" >
+        <argument
+            android:name="selectedDetailPostFromUser"
+            app:argType="com.example.kumparan.data.remote.model.DetailPostDTO" />
+        <action
+            android:id="@+id/detailUserToDetailPhoto"
+            app:destination="@id/detailPhotoFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailPhotoFragment"
+        android:name="com.example.kumparan.ui.detailphoto.DetailPhotoFragment"
+        android:label="DetailPhotoFragment" >
+        <argument
+            android:name="urlPhoto"
+            app:argType="string" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
+</navigation>
