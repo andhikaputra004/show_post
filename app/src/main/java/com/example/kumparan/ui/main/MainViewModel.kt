@@ -12,9 +12,9 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: PostRepository) : ViewModel() {
 
-    private val post = MutableLiveData<List<Post>>()
+    val post = MutableLiveData<List<Post>>()
 
-    private val users = MutableLiveData<List<User>>()
+    val users = MutableLiveData<List<User>>()
 
     val uiState = ActionLiveData<UiState>()
 
@@ -24,6 +24,7 @@ class MainViewModel(private val repository: PostRepository) : ViewModel() {
 
                 val user = userData.find { it.id == post.userId }
                 PostDTO(
+                    post.id,
                     post.title,
                     post.body,
                     user?.name,

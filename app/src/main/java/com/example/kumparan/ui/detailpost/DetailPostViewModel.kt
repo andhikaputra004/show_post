@@ -18,7 +18,7 @@ class DetailPostViewModel(
     private val selectedPost: PostDTO
 ) : ViewModel() {
 
-    private val comment = MutableLiveData<List<Comment>>()
+    val comment = MutableLiveData<List<Comment>>()
 
     val uiState = ActionLiveData<UiState>()
 
@@ -34,7 +34,7 @@ class DetailPostViewModel(
             it.map { comment -> comment.toDTO() })
     }
 
-    private fun getCommentByPostId(postId: Int) {
+    fun getCommentByPostId(postId: Int) {
         viewModelScope.launch {
             try {
                 uiState.sendAction(UiState.Loading)
@@ -47,6 +47,6 @@ class DetailPostViewModel(
     }
 
     init {
-        getCommentByPostId(selectedPost.userId)
+        getCommentByPostId(selectedPost.postId)
     }
 }

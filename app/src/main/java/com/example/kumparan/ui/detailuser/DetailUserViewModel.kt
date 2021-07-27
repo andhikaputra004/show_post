@@ -25,7 +25,7 @@ class DetailUserViewModel(private val repository: PostRepository, userId: Int) :
 
     private val photoData = mutableListOf<Photo>()
 
-    private fun getAlbumByUserId(userId: Int) {
+    fun getAlbumByUserId(userId: Int) {
         viewModelScope.launch {
             try {
                 uiState.sendAction(UiState.Loading)

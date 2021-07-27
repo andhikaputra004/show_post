@@ -13,6 +13,10 @@ import coil.ImageLoader
 import coil.request.ErrorResult
 import coil.request.ImageRequest
 import coil.request.SuccessResult
+import com.squareup.moshi.JsonReader
+import com.squareup.moshi.Moshi
+import okio.buffer
+import okio.source
 
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
@@ -38,4 +42,20 @@ class DrawableLoader(private val context: Context, private val imageLoader: Imag
             is ErrorResult -> throw result.throwable
         }
     }
+}
+
+inline fun <reified T> responseFromJson(jsonFile: String): List<T> {
+    val inputStream = T::class.java.classLoader.getResourceAsStream(jsonFile).source().buffer()
+    val moshi = Moshi.Builder().build()
+    val adapter = moshi.adapter(T::class.java)
+    val response = mutableListOf<T>()
+    JsonReader.of(inputStream).use { reader ->
+        reader.beginArray()
+        while (reader.hasNext()) {
+            adapter.fromJson(reader)?.let {
+                response.add(it)
+            }
+        }
+    }
+    return response
 }
